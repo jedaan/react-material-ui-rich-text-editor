@@ -48,7 +48,7 @@ const initialDocument = [
 ];
 
 export default function Editor(props) {
-  const { html, document, onChange, onBlur, containerProps, editableProps } =
+  const { html, document, onChange, onBlur, containerProps, editableProps, showToolBar = true } =
     props;
   const classes = useStyles();
 
@@ -122,7 +122,7 @@ export default function Editor(props) {
       {...containerProps}
     >
       <Slate editor={editor} value={value} onChange={handleChange}>
-        <Toolbar selection={selection || previousSelection} disabled={!focus} />
+        {showToolBar && <Toolbar selection={selection || previousSelection} disabled={!focus} />}
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
@@ -152,6 +152,7 @@ Editor.defaultProps = {
 };
 
 Editor.propTypes = {
+  showToolBar: PropTypes.bool,
   html: PropTypes.string,
   document: PropTypes.array,
   onChange: PropTypes.func,
